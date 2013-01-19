@@ -9,4 +9,5 @@ gem 'bourbon', '~> 3.0'
 group :test do
   gem 'rspec', '~> 2.12'
   gem 'rack-test'
+  gem 'webmock'
 end

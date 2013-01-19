@@ -2,18 +2,24 @@ require 'bundler/setup'
 require 'sinatra'
 require 'json'
 
-require './gravatar'
+require './lib/gravatar'
+require './lib/google_image'
+require './lib/person'
 
 get '/' do
   if params.empty?
     "Try /?gabe=gabe@thoughtbot.com,gabe@other_email.com"
   else
-    emails_by_name = {}
-    params.each do |name, emails_separated_by_commas|
-      emails = emails_separated_by_commas.split(',')
-      emails_by_name[name] = Gravatar.new(emails).urls
+    person_hash = {}
+
+    params.each do |identifier, identifier_hash|
+      emails = (identifier_hash['emails'] || '').split(',')
+      name = identifier_hash['name']
+      person = Person.new(name, emails)
+
+      person_hash[identifier] = person.urls
     end
 
-    JSON.dump(emails_by_name)
+    JSON.dump(person_hash)
   end
 end
