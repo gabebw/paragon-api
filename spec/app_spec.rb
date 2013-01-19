@@ -4,7 +4,7 @@ describe 'GET /' do
   it 'gives a helpful message with no parameters' do
     get '/'
 
-    last_response.body.should include 'Try /?gabe=gabe@thoughtbot.com'
+    last_response.body.should include 'Try /?gabe[emails]=gabe@thoughtbot.com&gabe[name]=Gabe+Berke-Williams'
   end
 
   it 'includes Gravatars if an email is given' do

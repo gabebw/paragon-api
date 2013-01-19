@@ -8,7 +8,7 @@ require './lib/person'
 
 get '/' do
   if params.empty?
-    "Try /?gabe=gabe@thoughtbot.com,gabe@other_email.com"
+    'Try /?gabe[emails]=gabe@thoughtbot.com&gabe[name]=Gabe+Berke-Williams'
   else
     person_hash = {}
 
