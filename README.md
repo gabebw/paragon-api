@@ -1,7 +1,7 @@
-Paragon
-=======
+Paragon API
+===========
 
-An API for finding a picture of someone, based on their email.
+An API for finding a picture of someone, based on their email and name.
 
 If you give it emails (`?ID[email]=gabe@example.com`), it finds Gravatars for those emails. If you give it a
 name (`?ID[name]=Gabe+B-W`), it will include 3 image URLs with Google image search.
