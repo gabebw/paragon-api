@@ -8,18 +8,12 @@ require './lib/person'
 
 get '/' do
   if params.empty?
-    'Try /?gabe[emails]=gabe@thoughtbot.com&gabe[name]=Gabe+Berke-Williams'
+    'Try /?emails=gabe@thoughtbot.com&name=Gabe+Berke-Williams'
   else
-    person_hash = {}
+    name = params['name']
+    emails = (params['emails'] || '').split(',')
+    person = Person.new(name, emails)
 
-    params.each do |identifier, identifier_hash|
-      emails = (identifier_hash['emails'] || '').split(',')
-      name = identifier_hash['name']
-      person = Person.new(name, emails)
-
-      person_hash[identifier] = person.urls
-    end
-
-    JSON.dump(person_hash)
+    JSON.dump(person.urls)
   end
 end
