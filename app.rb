@@ -4,6 +4,7 @@ require 'json'
 
 require './lib/gravatar'
 require './lib/google_image'
+require './lib/flickr'
 require './lib/person'
 
 get '/' do

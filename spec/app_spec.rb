@@ -21,7 +21,15 @@ describe 'GET /' do
     get '/', name: 'Gabe+Berke-Williams'
     body = JSON.load(last_response.body)
 
-    body.should == %w(one two three)
+    body.should =~ %w(one two three)
+  end
+
+  it 'includes 3 Flickr results if a name is given' do
+    stub_gis_to_return('gabe', [])
+    get '/', name: 'gabe'
+    body = JSON.load(last_response.body)
+
+    fail "Need to stub Flickr too"
   end
 
   it 'returns Gravatar URLs that 404 if no Gravatar exists' do

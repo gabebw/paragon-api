@@ -1,6 +1,17 @@
-require File.join(File.dirname(__FILE__), '..', 'app.rb')
+ROOT = Pathname.new(File.join(File.dirname(__FILE__), '..'))
 
-require 'sinatra'
+if File.exist?(ROOT.join('.env'))
+  File.readlines(ROOT.join('.env')).each do |line|
+    key, value = line.strip.split('=')
+    ENV[key] = value
+  end
+else
+  puts "! Please create a .env file in the app root with FLICKR_{KEY,SECRET} set"
+  exit 1
+end
+
+require ROOT.join('app.rb')
+
 require 'rack/test'
 require 'webmock'
 require 'webmock/rspec'
@@ -21,10 +32,6 @@ Dir['spec/support/**/*.rb'].each { |f| require File.expand_path(f) }
 
 RSpec.configure do |config|
   config.include Rack::Test::Methods
-
-  config.before do
-    stub_request(:get, 'http://ajax.googleapis.com').to_return(body: 'hi')
-  end
 
   config.around(allow_net_connect: true) do |example|
     WebMock.allow_net_connect!
